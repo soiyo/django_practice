@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     "user",
     "tweet",
     "restaurant",
+    "taggit.apps.TaggitAppConfig",
+    "taggit_templatetags2",
 ]
 
 MIDDLEWARE = [
@@ -73,6 +75,9 @@ TEMPLATES = [
         },
     },
 ]
+
+TAGGIT_CASE_INSENSITIVE = True
+TAGGIT_LIMIT = 50
 
 WSGI_APPLICATION = "django_practice.wsgi.application"
 
