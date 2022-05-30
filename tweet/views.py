@@ -1,7 +1,14 @@
-import re
-from wsgiref.util import request_uri
 from .models import TweetModel  # 글쓰기모델 : 가장 윗부분에 적어주기
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+
+
+@login_required
+def delete_tweet(requset, id):  # 이 id는 게시글 고유의 id로써 게시글을 구분 하는 데에 사용 할 변수임
+    my_tweet = TweetModel.objects.get(id=id)
+    my_tweet.delete()
+    return redirect("/tweet")
+
 
 # Create your views here.
 def home(request):
