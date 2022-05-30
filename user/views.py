@@ -1,9 +1,8 @@
-from pickletools import read_uint1
 from django.shortcuts import render, redirect
-
-import user
+from django.contrib.auth import get_user_model  # 사용자가 있는지 검사하는 함수 -sign_up_view와 연결됨
 from .models import UserModel
 from django.http import HttpResponse
+from django.contrib import auth  # 사용자 auth 기능 - sign_in_view와 연결됨
 
 # Create your views here.
 def sign_up_view(request):
@@ -19,16 +18,13 @@ def sign_up_view(request):
             return render(request, "user/signup.html")
         else:
             # 아이디 중복 체크
-            exist_user = UserModel.objects.filter(username=username)
-
+            exist_user = get_user_model().objects.filter(username=username)
             if exist_user:
                 return render(request, "user/signup.html")
             else:
-                new_user = UserModel()
-                new_user.username = username
-                new_user.password = password
-                new_user.bio = bio
-                new_user.save()
+                UserModel.objects.create_user(
+                    username=username, password=password, bio=bio
+                )
                 return redirect("/sign-in")
 
 
@@ -37,10 +33,12 @@ def sign_in_view(request):
         username = request.POST.get("username", None)
         password = request.POST.get("password", None)
 
-        me = UserModel.objects.get(username=username)  # 사용자 불러오기
-        if me.password == password:
-            request.session["user"] = me.username  # 세션에 사용자 이름 저장
-            return HttpResponse(me.username)  # 로그인 성공시 사용자 이름 출력
+        me = auth.authenticate(
+            request, username=username, password=password
+        )  # 사용자 불러오기
+        if me is not None:
+            auth.login(request, me)
+            return redirect("/")  # 로그인 성공시
         else:
             return redirect("/sign-in")
     if request.method == "GET":

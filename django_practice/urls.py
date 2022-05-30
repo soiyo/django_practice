@@ -23,4 +23,5 @@ urlpatterns = [
     # localhost/test에서 views파일 안의 base_response함수 실행
     path("first/", views.first_view, name="first_view"),
     path("", include("user.urls")),
+    path("", include("tweet.urls")),
 ]
