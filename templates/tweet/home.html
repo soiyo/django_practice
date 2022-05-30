@@ -1,5 +1,18 @@
-<!-- templates/tweet/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- templates/tweet/home.html -->
+
 {% extends 'base.html' %}
+{% block title %}
+    메인페이지
+{% endblock %}
 
 {% block content %}
     <div class="container timeline-container">
@@ -8,8 +21,8 @@
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">{{user.username}}</h5>
-                        <p class="card-text">{{user.bio}}</p>
+                        <h5 class="card-title">{{ user.username }}</h5>
+                        <p class="card-text"> {{ user.bio }}</p>
 
                     </div>
                 </div>
@@ -28,9 +41,11 @@
                                         <form action="/tweet/" method="post">
                                             {% csrf_token %}
                                             <div class="form-group mb-2">
-                                                <textarea class="form-control" style="resize: none" name='my-content' id="my-content"></textarea>
+                                                <textarea class="form-control" style="resize: none" name='my-content'
+                                                          id="my-content"></textarea>
                                             </div>
-                                            <button type="submit" class="btn btn-primary" style="float:right;">작성하기</button>
+                                            <button type="submit" class="btn btn-primary" style="float:right;">작성하기
+                                            </button>
                                         </form>
                                         </p>
                                     </div>
@@ -47,17 +62,18 @@
                             <div class="card">
                                 <div class="card-body">
                                     {% if tw.author == user %}
-                                    <div style="text-align: right">
-                                        <a href="/tweet/delete/{{ tw.id }}">
-                                            <span class="badge rounded-pill bg-danger">삭제</span>
-                                        </a>
-                                    </div>
+                                        <div style="text-align: right">
+                                            <a href="/tweet/delete/{{ tw.id }}">
+                                                <span class="badge rounded-pill bg-danger">삭제</span>
+                                            </a>
+                                        </div>
                                     {% endif %}
                                     <div style="text-align: right">
-                                        <a href="#">
+                                        <a href="/tweet/{{ tw.id }}">
                                             <span class="badge rounded-pill bg-success">보기</span>
                                         </a>
                                     </div>
+
                                     <div class="media">
                                         <div class="media-body">
                                             <h5 class="mt-0">{{ tw.content }}</h5>
@@ -65,6 +81,7 @@
                                         <div style="text-align: right">
                                             <span style="font-size: small">{{ tw.author.username }}-{{ tw.created_at|timesince }} 전</span>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -76,3 +93,5 @@
         </div>
     </div>
 {% endblock %}
+</body>
+</html>
