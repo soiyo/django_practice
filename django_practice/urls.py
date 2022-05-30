@@ -15,7 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
+    path("test/", views.base_response, name="first_test"),
+    # localhost/test에서 views파일 안의 base_response함수 실행
+    path("first/", views.first_view, name="first_view"),
 ]
