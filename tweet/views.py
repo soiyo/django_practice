@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -11,4 +12,8 @@ def home(request):
 
 def tweet(request):
     if request.method == "GET":
-        return render(request, "tweet/home.html")
+        user = request.user.is_authenticated  # 사용자가 로그인이 되어 있는지 확인하기
+        if user:  # 로그인한 사용자라면
+            return render(request, "tweet/home.html")
+        else:
+            return redirect("/sign-in")
