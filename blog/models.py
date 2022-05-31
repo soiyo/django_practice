@@ -3,16 +3,13 @@
 from django.db import models
 
 
-class CategoryModel(models.Model):
-     class Meta:
-        db_table = "category"
-    category = models.CharField(max_length=256)
-    desc = models.CharField(max_length=256)
+class Category(models.Model):
+    name = models.CharField(max_length=256)
+    description = models.TextField()
+
 
 class Article(models.Model):
-    class Meta:
-        db_table = "article"
 
-    category = models.ForeignKey(CategoryModel, on_delete=models.CASCADE)
     title = models.CharField(max_length=256)
-    content = models.CharField(max_length=256)
+    content = models.TextField()
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)

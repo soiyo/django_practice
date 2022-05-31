@@ -2,16 +2,12 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <title>Title</title>
     </head>
     <body>
-        <form>
-            {%for cat in category.category%}
-            <a href="/new/">{{cat}}(0)</a>
-            {%endfor%}
-            <a href="#">글쓰기</a>
-        </form>
+        {# movie: 1, drama: 0 #} {% for name, count in infos.items %}
+        <a href="{% url 'article' name %}">{{ name }}({{ count }})</a>
+        {% endfor %}
+        <a href="{% url 'new' %}">글쓰기</a>
     </body>
 </html>
