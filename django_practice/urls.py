@@ -15,16 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from . import views
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", views.category_view, name="category"),
-    path("new/", views.new_view, name="new"),
-    path("detail/<int:pk>", views.detail_view, name="detail"),
-    # detail_view 라는 함수가 PK 라는 변수를 받아서 실행될 수 있게 되고
-    path("<str:name>", views.article_view, name="article"),
-    # article_view 라는 함수가 NAME 이라는 변수를 받아서 실행될 수 있게됩니다.
     path("", include("product.urls")),
 ]
