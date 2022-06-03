@@ -4,9 +4,14 @@ from .models import Category, Drink
 
 def drink_view(request):
     if request.method == "POST":
-        # name = request.POST.get("name", None)
+        name = request.POST.get("name", None)
+        categories = Drink.objects.all()
         # return redirect("drink")
-        return render(request, "product/drink.html", {"POST": "POST방식입니다!"})
+        return render(
+            request,
+            "product/drink.html",
+            {"POST": "POST방식입니다!", "name": name, "categories": categories},
+        )
     elif request.method == "GET":
         # category = Category.objects.get(category=category)
         # name = Drink.objects.get(name=name)

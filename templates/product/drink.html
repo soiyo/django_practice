@@ -10,9 +10,19 @@
         </form>
         <form method="post">
             {% csrf_token %}
-            <button>POST</button>
+            감상평 :
+            <input name="name">{{name}}</input>
+            <select name="category">
+                {% for category in categories %}
+                <option value="{{ category.name }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">POST</button>
+            
         </form>
         <h2>{{GET}}</h2>
+        
         <h2>{{POST}}</h2>
+        
     </body>
 </html>
