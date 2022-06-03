@@ -14,8 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from blog import views
+from django.urls import path, include
+from . import views
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -25,4 +26,5 @@ urlpatterns = [
     # detail_view 라는 함수가 PK 라는 변수를 받아서 실행될 수 있게 되고
     path("<str:name>", views.article_view, name="article"),
     # article_view 라는 함수가 NAME 이라는 변수를 받아서 실행될 수 있게됩니다.
+    path("", include("product.urls")),
 ]
